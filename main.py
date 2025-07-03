@@ -15,17 +15,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class SlotRequest(BaseModel):
-    date: str
-
-class BookRequest(BaseModel):
-    summary: str
-    start_time: str
-    end_time: str
-
-class AgentRequest(BaseModel):
-    message: str
-
 @app.post("/")
 def home(): 
     return {"status": "Server is running"}
