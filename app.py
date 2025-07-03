@@ -1,5 +1,11 @@
 import streamlit as st
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+BACKEND_URL = os.getenv('BACKEND_URL')
 
 st.set_page_config(page_title="Calendar AI Chat", page_icon="📅")
 
@@ -21,7 +27,7 @@ if user_input:
     # Call the backend
     with st.spinner("💬 Talking to Calendar Agent..."):
         try:
-            res = requests.post("http://localhost:8000/agent", json={"message": user_input})
+            res = requests.post(f"{BACKEND_URL}/agent", json={"message": user_input})
             if res.status_code == 200:
                 agent_response = res.json()["response"]["output"]
                 # Append agent response

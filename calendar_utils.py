@@ -6,18 +6,20 @@ from datetime import datetime, timedelta
 from dateparser import parse
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
 # Load service account credentials
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-SERVICE_ACCOUNT_FILE = 'service_account.json'  # Your downloaded JSON key
 
 # ⬅️ Put your calendar ID here
 CALENDAR_ID = os.getenv('CALENDAR_ID')  # e.g., aiassistantbot@group.calendar.google.com
 
-credentials = service_account.Credentials.from_service_account_file(
-    SERVICE_ACCOUNT_FILE, scopes=SCOPES
+service_account_info = json.loads(os.environ["GOOGLE_CREDENTIALS_JSON"])
+
+credentials = service_account.Credentials.from_service_account_info(
+    service_account_info, scopes=SCOPES
 )
 service = build('calendar', 'v3', credentials=credentials)
 
