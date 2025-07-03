@@ -15,6 +15,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class AgentRequest(BaseModel):
+    message: str
+    
 @app.post("/")
 def home(): 
     return {"status": "Server is running"}
